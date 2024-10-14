@@ -158,22 +158,22 @@ function pasarTurno(tipo) {
   let i = 0;
   let ok = false;
 
-  
-    debugger
-    for (let index = 0; index < jugadores.length; index++) {
-      const element = jugadores[index];
 
-      if (jugadores[index].turno == true) {
-        jugadores[index].turno = false;
-        i=index;
-      }
+  debugger
+  for (let index = 0; index < jugadores.length; index++) {
+    const element = jugadores[index];
+
+    if (jugadores[index].turno == true) {
+      jugadores[index].turno = false;
+      i = index;
     }
+  }
 
+  i = (i + 1) % jugadores.length;
+  while (jugadores[i].eliminado) {
     i = (i + 1) % jugadores.length;
-    while (jugadores[i].eliminado) {
-      i = (i + 1) % jugadores.length;
-    }
-    jugadores[i].turno=true;
+  }
+  jugadores[i].turno = true;
 
 
 
@@ -323,7 +323,7 @@ function comprobarVictoria() {
     let botonReiniciar = document.createElement('button');
 
     botonReiniciar.classList.add('btnAccion');
-    botonReiniciar.textContent='Jugar de nuevo';
+    botonReiniciar.textContent = 'Jugar de nuevo';
     botonReiniciar.addEventListener("click", recargar);
 
     let contenedorAcciones = document.getElementById('contenedorAcciones');
@@ -338,7 +338,7 @@ function sumarDescarte(carta) {
   columnaDescartes.append(nuevaEntrada);
 }
 
-function recargar(){
+function recargar() {
   location.reload();
 }
 
@@ -358,9 +358,8 @@ function robarCarta() {
     activarBoton();
     comprobarJugador();
     colorEliminado();
-    comprobarVictoria();
     actualizarContador();
-
+    comprobarVictoria();
 
   }
 }
