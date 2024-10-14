@@ -128,7 +128,7 @@ class Baraja {
         imagenRandom = "0" + imagenRandom;
       }
 
-      let enla = `${ imagenRandom }`;
+      let enla = `${imagenRandom}`;
       let enlaceImagen = "/img/card/robot_" + enla + ".png";
 
       let cartaNueva = new Carta("Puntos", 0, enlaceImagen);
@@ -158,29 +158,27 @@ function pasarTurno(tipo) {
   let i = 0;
   let ok = false;
 
-  do {
+  
+    debugger
     for (let index = 0; index < jugadores.length; index++) {
       const element = jugadores[index];
 
       if (jugadores[index].turno == true) {
         jugadores[index].turno = false;
-
-        if (index != jugadores.length - 1) {
-          i = index + 1;
-        }
-        index = jugadores.length;
+        i=index;
       }
     }
 
-    jugadores[i].turno = true;
-    if (jugadores[i].eliminado == false) {
-      ok = true;
+    i = (i + 1) % jugadores.length;
+    while (jugadores[i].eliminado) {
+      i = (i + 1) % jugadores.length;
     }
-  } while (ok = false);
+    jugadores[i].turno=true;
+
+
 
   colorTurno();
   activarBoton();
-  actualizarContador();
 }
 
 function pasarTurnoJugador() {
@@ -194,10 +192,8 @@ function pasarTurnoJugador() {
 
 
     if (jugadores[index].turno == true) {
-
       let cartaJugador = jugadores[index].cartas.find(
-        (carta) => carta.tipo === "SaltoTurno"
-      );
+        (carta) => carta.tipo === "SaltoTurno");
       let indexCarta = jugadores[index].cartas.indexOf(cartaJugador);
       let cartaParaDescartar = jugadores[index].cartas[indexCarta];
       jugadores[index].cartas.splice(indexCarta, 1);
@@ -323,6 +319,16 @@ function comprobarVictoria() {
   }
 
   if (victoria) {
+    botonPasarTurno.style.display = 'none';
+    let botonReiniciar = document.createElement('button');
+
+    botonReiniciar.classList.add('btnAccion');
+    botonReiniciar.textContent='Jugar de nuevo';
+    botonReiniciar.addEventListener("click", recargar);
+
+    let contenedorAcciones = document.getElementById('contenedorAcciones');
+    contenedorAcciones.append(botonReiniciar);
+
   }
 }
 
@@ -330,6 +336,10 @@ function sumarDescarte(carta) {
   let nuevaEntrada = document.createElement("li");
   nuevaEntrada.innerHTML = carta.tipo;
   columnaDescartes.append(nuevaEntrada);
+}
+
+function recargar(){
+  location.reload();
 }
 
 function robarCarta() {
@@ -345,18 +355,12 @@ function robarCarta() {
     });
 
     pasarTurno();
-    jugadores.forEach((element) => {
-      if (element.turno == true) {
-        if (element.eliminado == true) {
-          pasarTurno();
-        }
-      }
-    });
-
     activarBoton();
     comprobarJugador();
-    comprobarVictoria();
     colorEliminado();
+    comprobarVictoria();
+    actualizarContador();
+
 
   }
 }
@@ -392,31 +396,31 @@ let j3numDesactivacion = document.getElementById("J3Desactivacion");
 
 function actualizarContador() {
   j1numCartas.textContent =
-    " ⚪ Número de cartas: " + `${ jugador1.contarCartas() }`;
+    " ⚪ Número de cartas: " + `${jugador1.contarCartas()}`;
   j1numPuntos.textContent =
-    " ⚪ Puntos totales: " + `${ jugador1.contarPuntos() }`;
+    " ⚪ Puntos totales: " + `${jugador1.contarPuntos()}`;
   j1numSaltos.textContent =
-    " ⚪ Cartas salto turno: " + `${ jugador1.saltarTurno() }`;
+    " ⚪ Cartas salto turno: " + `${jugador1.saltarTurno()}`;
   j1numDesactivacion.textContent =
-    " ⚪ Cartas desactivación: " + `${ jugador1.numDesactivar() }`;
+    " ⚪ Cartas desactivación: " + `${jugador1.numDesactivar()}`;
 
   j2numCartas.textContent =
-    " ⚪ Número de cartas: " + `${ jugador2.contarCartas() }`;
+    " ⚪ Número de cartas: " + `${jugador2.contarCartas()}`;
   j2numPuntos.textContent =
-    " ⚪ Puntos totales: " + `${ jugador2.contarPuntos() }`;
+    " ⚪ Puntos totales: " + `${jugador2.contarPuntos()}`;
   j2numSaltos.textContent =
-    " ⚪ Cartas salto turno: " + `${ jugador2.saltarTurno() }`;
+    " ⚪ Cartas salto turno: " + `${jugador2.saltarTurno()}`;
   j2numDesactivacion.textContent =
-    " ⚪ Cartas desactivación: " + `${ jugador2.numDesactivar() }`;
+    " ⚪ Cartas desactivación: " + `${jugador2.numDesactivar()}`;
 
   j3numCartas.textContent =
-    " ⚪ Número de cartas: " + `${ jugador3.contarCartas() }`;
+    " ⚪ Número de cartas: " + `${jugador3.contarCartas()}`;
   j3numPuntos.textContent =
-    " ⚪ Puntos totales: " + `${ jugador3.contarPuntos() }`;
+    " ⚪ Puntos totales: " + `${jugador3.contarPuntos()}`;
   j3numSaltos.textContent =
-    " ⚪ Cartas salto turno: " + `${ jugador3.saltarTurno() }`;
+    " ⚪ Cartas salto turno: " + `${jugador3.saltarTurno()}`;
   j3numDesactivacion.textContent =
-    " ⚪ Cartas desactivación: " + `${ jugador3.numDesactivar() }`;
+    " ⚪ Cartas desactivación: " + `${jugador3.numDesactivar()}`;
 }
 
 let victoria = false;
