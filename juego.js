@@ -97,7 +97,7 @@ class Baraja {
   inicializa() {
     //Metemos las bombas
     for (let index = 0; index < 6; index++) {
-      let cartaNueva = new Carta("Bomba", 0, "/img/bomba/bomba.png");
+      let cartaNueva = new Carta("Bomba", 0, "img/bomba/bomba.png");
       this.cartas.push(cartaNueva);
     }
 
@@ -106,7 +106,7 @@ class Baraja {
       let cartaNueva = new Carta(
         "Desactivacion",
         0,
-        "/img/herramienta/herramienta.png"
+        "img/herramienta/herramienta.png"
       );
       this.cartas.push(cartaNueva);
     }
@@ -116,7 +116,7 @@ class Baraja {
       let cartaNueva = new Carta(
         "SaltoTurno",
         0,
-        "/img/pasarTurno/pasarTurno.png"
+        "img/pasarTurno/pasarTurno.png"
       );
       this.cartas.push(cartaNueva);
     }
@@ -129,7 +129,7 @@ class Baraja {
       }
 
       let enla = `${imagenRandom}`;
-      let enlaceImagen = "/img/card/robot_" + enla + ".png";
+      let enlaceImagen = "img/card/robot_" + enla + ".png";
 
       let cartaNueva = new Carta("Puntos", 0, enlaceImagen);
       let random = Math.random();
@@ -243,7 +243,7 @@ function colorTurno() {
 
 function colorEliminado() {
   let numeroEliminado = 0;
-  let calavera = "/img/eliminado/calavera.png";
+  let calavera = "img/eliminado/calavera.png";
 
   for (let index = 0; index < jugadores.length; index++) {
     const element = jugadores[index];
